@@ -8,19 +8,23 @@ A collection of JavaScript-based mini projects.
 Required fields validation
 Email and password format validation
 Proper error message handling
+
 ✅ LocalStorage State Manager
 Save data
 Retrieve data
 Update existing data
 Delete data
+
 Data persists after page refresh
 ✅ Search & Filter Logic
 Filter list based on user input
 Case-insensitive search
+
 ✅ Pagination Logic
 Page number navigation
 Next / Previous controls
 Items per page selection
+
 ✅ Sort Functionality
 Ascending / Descending sorting
 Sort based on:
@@ -33,15 +37,19 @@ Date
 ✅ Debounced Search Input
 Triggers API/search after user stops typing
 Improves performance and reduces unnecessary calls
+
 ✅ Throttle Button Click
 Prevents multiple rapid clicks
 Ensures controlled execution of actions
+
 ✅ Modal Open / Close System
 Close modal on ESC key press
 Close modal on outside click
+
 ✅ Tabs Component Logic
 Active tab state handling
 Dynamic content switching
+
 ✅ Dropdown Toggle System
 Toggle dropdown on click
 Close on outside click
@@ -57,6 +65,7 @@ Temperature
 Weather condition
 Humidity
 Location
+
 💬 Quote Generator App
 Fetch random quotes from API
 Display:
