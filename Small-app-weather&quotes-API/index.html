@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mini API App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>🌐 Mini API App</h1>
+
+  <!-- Weather Section -->
+  <div class="box">
+    <h2>Weather</h2>
+    <input type="text" id="city" placeholder="Enter city">
+    <button onclick="getWeather()">Get Weather</button>
+    <p id="weatherResult"></p>
+  </div>
+
+  <!-- Quote Section -->
+  <div class="box">
+    <h2>Quote</h2>
+    <button onclick="getQuote()">Get Quote</button>
+    <p id="quote"></p>
+    <p id="author"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

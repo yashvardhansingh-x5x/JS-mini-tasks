@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Form Heavy App - Final</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+}
+
+.container {
+  width: 420px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  margin-top: 50px;
+  border-radius: 12px;
+}
+
+.step { display: none; }
+.step.active { display: block; }
+
+.progress {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.progress div {
+  flex: 1;
+  height: 5px;
+  background: #ddd;
+  margin: 2px;
+}
+
+.progress .active {
+  background: #4caf50;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+button {
+  padding: 10px 15px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.hidden { display: none; }
+
+#error-summary {
+  background: #ffe0e0;
+  color: red;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: none;
+  border-radius: 6px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Multi-Step Form</h2>
+
+  <!-- Progress -->
+  <div class="progress">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Error Summary -->
+  <div id="error-summary"></div>
+
+  <form id="form">
+
+    <!-- Step 1 -->
+    <div class="step active">
+      <h3>Personal Info</h3>
+      <input type="text" id="name" placeholder="Name">
+      <input type="email" id="email" placeholder="Email">
+      <button type="button" class="next">Next</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step">
+      <h3>Preferences</h3>
+
+      <label>Are you a student?</label>
+      <select id="isStudent">
+        <option value="">Select</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <div id="student-field" class="hidden">
+        <input type="text" id="college" placeholder="College Name">
+      </div>
+
+      <button type="button" class="prev">Previous</button>
+      <button type="button" class="next">Next</button>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step">
+      <h3>Submit</h3>
+      <p>Review & Submit</p>
+
+      <button type="button" class="prev">Previous</button>
+      <button type="submit">Submit</button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+const steps = document.querySelectorAll(".step");
+const progressBars = document.querySelectorAll(".progress div");
+const nextBtns = document.querySelectorAll(".next");
+const prevBtns = document.querySelectorAll(".prev");
+
+const form = document.getElementById("form");
+const errorBox = document.getElementById("error-summary");
+
+// Inputs
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const isStudent = document.getElementById("isStudent");
+const collegeInput = document.getElementById("college");
+const studentField = document.getElementById("student-field");
+
+let currentStep = 0;
+let isProcessing = false;
+
+// Show step
+function showStep(index) {
+  steps.forEach(s => s.classList.remove("active"));
+  steps[index].classList.add("active");iski
+
+  progressBars.forEach((bar, i) => {
+    bar.classList.toggle("active", i <= index);
+  });
+
+  showErrors([]); // clear errors
+  focusFirstInput();
+}
+
+// Focus
+function focusFirstInput() {
+  const input = steps[currentStep].querySelector("input, select");
+  if (input) input.focus();
+}
+
+// Errors
+function showErrors(errors) {
+  if (errors.length) {
+    errorBox.style.display = "block";
+    errorBox.innerHTML = errors.map(e => `<p>${e}</p>`).join("");
+  } else {
+    errorBox.style.display = "none";
+  }
+}
+
+// Validators (scalable)
+const validators = [
+  () => {
+    const errors = [];
+    if (!nameInput.value.trim()) errors.push("Name is required");
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailInput.value)) {
+      errors.push("Valid email required");
+    }
+
+    return errors;
+  },
+  () => {
+    const errors = [];
+    if (!isStudent.value) errors.push("Select student status");
+
+    if (isStudent.value === "yes" && !collegeInput.value.trim()) {
+      errors.push("College name required");
+    }
+
+    return errors;
+  },
+  () => [] // Step 3 (no validation)
+];
+
+// Validate
+function validateStep() {
+  const errors = validators[currentStep]();
+  showErrors(errors);
+  return errors.length === 0;
+}
+
+// Next
+nextBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (isProcessing) return;
+    isProcessing = true;
+
+    if (validateStep() && currentStep < steps.length - 1) {
+      currentStep++;
+      showStep(currentStep);
+    }
+
+    setTimeout(() => isProcessing = false, 250);
+  });
+});
+
+// Prev
+prevBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (currentStep > 0) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  });
+});
+
+// Conditional
+isStudent.addEventListener("change", () => {
+  if (isStudent.value === "yes") {
+    studentField.classList.remove("hidden");
+  } else {
+    studentField.classList.add("hidden");
+    collegeInput.value = "";
+  }
+});
+
+// Submit
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  if (validateStep()) {
+    alert("Form Submitted Successfully 🚀");
+
+    form.reset();
+    currentStep = 0;
+
+    // Reset UI
+    progressBars.forEach(bar => bar.classList.remove("active"));
+    progressBars[0].classList.add("active");
+
+    studentField.classList.add("hidden");
+
+    showStep(currentStep);
+  }
+});
+
+// Init
+showStep(currentStep);
+</script>
+
+</body>
+</html>

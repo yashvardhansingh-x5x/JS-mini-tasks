@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro Sidebar</title>
+
+<style>
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#eef2f5;
+}
+
+/* Overlay */
+.overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+
+  opacity:0;
+  visibility:hidden;
+  transition: 0.3s ease;
+}
+
+.overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+
+/* Sidebar */
+.sidebar{
+  position: fixed;
+  top:0;
+  left:0;
+  height:100%;
+  width:280px;
+
+  background:#111;
+  color:white;
+  padding:20px;
+
+  display:flex;
+  flex-direction:column;
+
+  transform: translateX(-100%);
+  transition: transform 0.35s ease;
+  box-shadow: 5px 0 25px rgba(0,0,0,0.5);
+}
+
+/* Open state */
+.sidebar.show{
+  transform: translateX(0);
+}
+
+/* Header */
+.sidebar-header{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:20px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding-bottom:10px;
+}
+
+/* Menu */
+ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+  flex:1;
+}
+
+li{
+  padding:12px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:0.2s;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+li:hover{
+  background: rgba(255,255,255,0.1);
+}
+
+/* Links */
+a{
+  color:bisque;
+  text-decoration:none;
+}
+
+/* Footer */
+.footer{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* Buttons */
+button{
+  border:none;
+  cursor:pointer;
+  border-radius:6px;
+  padding:10px;
+}
+
+/* Follow button */
+.follow-btn{
+  background:#00e5ff;
+  font-weight:bold;
+  transition:0.2s;
+}
+
+.follow-btn:hover{
+  transform: scale(1.05);
+}
+
+/* Close button inside sidebar */
+.close-btn{
+  background:#c62828;
+  color:white;
+}
+
+/* Menu button */
+.menu-btn{
+  position: fixed;
+  top:15px;
+  left:15px;
+  z-index:1001;
+
+  background:#6a1b9a;
+  color:white;
+  padding:10px 14px;
+}
+
+/* Responsive */
+@media (max-width: 500px){
+  .sidebar{
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<button class="menu-btn">☰ Menu</button>
+
+<div class="overlay"></div>
+
+<div class="sidebar">
+  <div class="sidebar-header">Navigation</div>
+
+  <ul>
+    <li>🏠 <a href="#">Home</a></li>
+    <li>📂 Menu</li>
+    <li>📝 Content</li>
+    <li>ℹ️ About</li>
+    <li>📌 Section</li>
+    <li>🔗 <a href="https://appzime.com" target="_blank">External Link</a></li>
+  </ul>
+
+  <div class="footer">
+    <button class="follow-btn">Follow</button>
+    <button class="close-btn">Close</button>
+  </div>
+</div>
+
+<script>
+const menuBtn = document.querySelector(".menu-btn");
+const sidebar = document.querySelector(".sidebar");
+const overlay = document.querySelector(".overlay");
+const closeBtn = document.querySelector(".close-btn");
+const followBtn = document.querySelector(".follow-btn");
+
+/* Open sidebar */
+menuBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  sidebar.classList.add("show");
+  overlay.classList.add("show");
+});
+
+/* Close sidebar */
+function closeSidebar(){
+  sidebar.classList.remove("show");
+  overlay.classList.remove("show");
+}
+
+/* Events */
+overlay.addEventListener("click", closeSidebar);
+closeBtn.addEventListener("click", closeSidebar);
+
+/* ESC key support */
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape"){
+    closeSidebar();
+  }
+});
+
+/* Follow action */
+followBtn.addEventListener("click", () => {
+  alert("Followed!");
+});
+</script>
+
+</body>
+</html>

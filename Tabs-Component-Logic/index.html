@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabs Component</title>
+
+  <style>
+    body { font-family: Arial; text-align: center; }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    .active {
+      background: black;
+      color: white;
+    }
+
+    .content {
+      border: 1px solid #ccc;
+      padding: 20px;
+      width: 300px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Tabs Component</h2>
+
+<div class="tabs">
+  <div class="tab active" data-tab="1">Tab 1</div>
+  <div class="tab" data-tab="2">Tab 2</div>
+  <div class="tab" data-tab="3">Tab 3</div>
+</div>
+
+<div class="content" id="content">
+  Content for Tab 1
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

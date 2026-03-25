@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GitHub Profile Finder</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: white;
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+    }
+
+    .container {
+      width: 400px;
+      text-align: center;
+    }
+
+    input {
+      width: 70%;
+      padding: 10px;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      margin-left: 5px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .card {
+      margin-top: 20px;
+      background: #161b22;
+      padding: 20px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    img {
+      width: 100px;
+      border-radius: 50%;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>GitHub Profile Finder</h2>
+
+    <input type="text" id="username" placeholder="Enter GitHub username">
+    <button onclick="getUser()">Search</button>
+
+    <div class="error" id="error"></div>
+
+    <div class="card" id="card">
+      <img id="avatar" src="" alt="">
+      <h3 id="name"></h3>
+      <p id="bio"></p>
+
+      <div class="stats">
+        <div>Repos: <span id="repos"></span></div>
+        <div>Followers: <span id="followers"></span></div>
+        <div>Following: <span id="following"></span></div>
+      </div>
+
+      <a id="profileLink" href="#" target="_blank">View Profile</a>
+    </div>
+  </div>
+
+  <script>
+    async function getUser() {
+      const username = document.getElementById("username").value.trim();
+      const error = document.getElementById("error");
+      const card = document.getElementById("card");
+
+      error.textContent = "";
+      card.style.display = "none";
+
+      if (!username) {
+        error.textContent = "Please enter a username";
+        return;
+      }
+
+      try {
+        const res = await fetch(`https://api.github.com/users/${username}`);
+
+        if (!res.ok) {
+          throw new Error("User not found");
+        }
+
+        const data = await res.json();
+
+        document.getElementById("avatar").src = data.avatar_url;
+        document.getElementById("name").textContent = data.name || data.login;
+        document.getElementById("bio").textContent = data.bio || "No bio available";
+        document.getElementById("repos").textContent = data.public_repos;
+        document.getElementById("followers").textContent = data.followers;
+        document.getElementById("following").textContent = data.following;
+        document.getElementById("profileLink").href = data.html_url;
+
+        card.style.display = "block";
+
+      } catch (err) {
+        error.textContent = err.message;
+      }
+    }
+  </script>
+
+</body>
+</html>

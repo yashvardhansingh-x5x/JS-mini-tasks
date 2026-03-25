@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Improved Card</title>
+
+<style>
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background: linear-gradient(135deg, #000, #1a1a1a);
+    font-family: Arial, sans-serif;
+    color:white;
+}
+
+/* CARD */
+.card{
+    width: 360px;
+    background: #2b2b2b;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+}
+
+/* IMAGE */
+.photo-img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+/* BAR */
+.bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 15px;
+}
+
+/* LOGO */
+.logo-img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    cursor:pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-img:hover{
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255,255,255,0.4);
+}
+
+.logo-img:active{
+    transform: scale(0.95);
+}
+
+/* BUTTON */
+.like{
+    background: #e34141;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    transition: all 0.3s ease;
+}
+
+.like:hover{
+    background:white;
+    color:#e34141;
+    border:1px solid #e34141;
+}
+
+.like:active{
+    transform: scale(0.95);
+}
+
+/* TEXT */
+.text{
+    padding:15px;
+    text-align:center;
+}
+
+.text h2{
+    margin:5px 0;
+    font-size:20px;
+    text-transform:capitalize;
+}
+
+.text p{
+    font-size:14px;
+    opacity:0.8;
+    line-height:1.4;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <img src="images.jpg" class="photo-img" alt="camera">
+
+    <div class="bar">
+        <img src="images.jpg" class="logo-img" alt="logo">
+
+        <button class="like">Like ❤️</button>
+    </div>
+
+    <div class="text">
+        <h2>Latest Camera</h2>
+        <p>This is the latest camera model with advanced features.</p>
+    </div>
+
+</div>
+
+</body>
+</html>

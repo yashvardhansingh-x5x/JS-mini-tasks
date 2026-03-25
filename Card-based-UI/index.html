@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Text Style Improved</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f4f6f8;
+  display:flex;
+  justify-content:center;
+  padding:40px;
+}
+
+/* Container Card */
+.container{
+  max-width:600px;
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Title */
+.video-title{
+  font-size:26px;
+  font-weight:700;
+  color:#1a73e8;
+  line-height:1.3;
+  margin-bottom:10px;
+}
+
+/* Meta text */
+.small-text{
+  font-size:14px;
+  color:#666;
+  margin-bottom:15px;
+}
+
+/* Section title */
+.to-do{
+  font-size:18px;
+  font-weight:600;
+  color:#333;
+  margin-bottom:15px;
+}
+
+/* Description */
+.time-description{
+  font-size:16px;
+  color:#444;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+/* Callout box */
+.more{
+  background: linear-gradient(135deg, #e53935, #ff6f60);
+  color:white;
+  padding:16px;
+  border-radius:8px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
+  font-size:14px;
+}
+
+/* Learn more link */
+.lrn{
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  transition: all 0.2s ease;
+}
+
+.lrn:hover{
+  text-decoration: underline;
+  transform: translateY(-2px);
+}
+
+.lrn:active{
+  transform: scale(0.95);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <p class="video-title">
+    Talking about text and fonts in HTML with Yashvardhan Singh!
+  </p>
+
+  <p class="small-text">
+    system error 404 · video not found
+  </p>
+
+  <p class="to-do">
+    Rise and Shine ✓
+  </p>
+
+  <p class="time-description">
+    9:00 AM - 10:00 AM <br><br>
+    Talking about text and fonts in HTML and practicing it with Yashvardhan Singh.
+    Keep practicing and you will be a pro in no time!
+  </p>
+
+  <div class="more">
+    <span>There's more to see,</span>
+    <span class="lrn" onclick="window.open('https://www.youtube.com', '_blank')">
+      Learn more >
+    </span>
+  </div>
+
+</div>
+
+</body>
+</html>

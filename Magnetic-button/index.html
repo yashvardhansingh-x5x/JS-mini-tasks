@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body { background: #050505; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; }
+        
+        .magnetic-btn {
+            padding: 20px 40px;
+            background: #00d4ff;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="magnetic-btn" id="magnet">Magnetic Button</button>
+
+    <script>
+        const btn = document.getElementById('magnet');
+
+        document.addEventListener('mousemove', (e) => {
+            const btnRect = btn.getBoundingClientRect();
+            const btnCenterX = btnRect.left + btnRect.width / 2;
+            const btnCenterY = btnRect.top + btnRect.height / 2;
+
+            // Calculate distance between mouse and button center
+            const deltaX = e.clientX - btnCenterX;
+            const deltaY = e.clientY - btnCenterY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            // Set the "pull" radius (e.g., 100px)
+            const pullRadius = 100;
+
+            if (distance < pullRadius) {
+                // Move the button a fraction of the distance (the "magnetic" pull)
+                const moveX = deltaX * 0.3;
+                const moveY = deltaY * 0.3;
+                btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            } else {
+                // Return to original position
+                btn.style.transform = `translate(0, 0)`;
+            }
+        });
+    </script>
+</body>
+</html>

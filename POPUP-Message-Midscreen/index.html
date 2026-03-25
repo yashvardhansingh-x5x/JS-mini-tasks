@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Improved Modal</title>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+}
+
+/* Button */
+#open{
+  padding:10px 15px;
+  cursor:pointer;
+}
+
+/* Overlay */
+#popup{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.6);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  opacity:0;
+  visibility:hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show state */
+#popup.show{
+  opacity:1;
+  visibility:visible;
+}
+
+/* Modal box */
+.popup-box{
+  width:320px;
+  padding:20px;
+  background:#e3f2fd;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
+
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+}
+
+/* Animate modal */
+#popup.show .popup-box{
+  transform: scale(1);
+}
+
+/* Buttons */
+button{
+  padding:8px 14px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* Action buttons */
+#submit{
+  background:#2e7d32;
+  color:white;
+}
+
+#close{
+  background:#c62828;
+  color:white;
+}
+
+/* Optional hover effects */
+button:hover{
+  opacity:0.9;
+}
+
+</style>
+</head>
+
+<body>
+
+<button id="open">Open Popup</button>
+
+<div id="popup">
+  <div class="popup-box">
+    <h3>Popup Modal</h3>
+    <p>This is a simple modal window</p>
+
+    <div>
+      <button id="submit">Submit</button>
+      <button id="close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const popup = document.querySelector("#popup");
+const openBtn = document.querySelector("#open");
+const submitBtn = document.querySelector("#submit");
+const closeBtn = document.querySelector("#close");
+
+/* Open modal */
+openBtn.addEventListener("click", () => {
+  popup.classList.add("show");
+});
+
+/* Close modal */
+function closeModal(){
+  popup.classList.remove("show");
+}
+
+/* Buttons */
+closeBtn.addEventListener("click", closeModal);
+
+submitBtn.addEventListener("click", () => {
+  alert("Submitted");
+  closeModal();
+});
+
+/* Outside click */
+popup.addEventListener("click", (e) => {
+  if(e.target === popup){
+    closeModal();
+  }
+});
+
+/* ESC key close */
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape"){
+    closeModal();
+  }
+});
+</script>
+
+</body>
+</html>

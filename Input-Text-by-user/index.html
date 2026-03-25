@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inputbox" placeholder="type something">
+    <button onclick="printText()">
+        show
+    </button>
+    <p id="output">
+    </p>
+    <script>
+        function printText() {
+            let text = document.getElementById("inputbox").value;
+            document.getElementById("output").innerText = text;
+            
+        }
+    </script>
+
+    
+</body>
+</html>

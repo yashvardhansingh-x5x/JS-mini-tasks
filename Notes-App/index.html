@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Notes App</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: white;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .add-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    .notes-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .note {
+      background: #161b22;
+      padding: 10px;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      background: transparent;
+      color: white;
+      border: none;
+      outline: none;
+      resize: none;
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      cursor: pointer;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Notes App</h1>
+  <button class="add-btn" onclick="addNote()">Add Note</button>
+
+  <div class="notes-container" id="notes"></div>
+
+  <script>
+    const notesContainer = document.getElementById("notes");
+
+    // Load notes from localStorage
+    function loadNotes() {
+      const notes = JSON.parse(localStorage.getItem("notes")) || [];
+      notesContainer.innerHTML = "";
+
+      notes.forEach((note, index) => {
+        createNoteElement(note, index);
+      });
+    }
+
+    function createNoteElement(text, index) {
+      const noteDiv = document.createElement("div");
+      noteDiv.classList.add("note");
+
+      noteDiv.innerHTML = `
+        <span class="delete-btn" onclick="deleteNote(${index})">✖</span>
+        <textarea oninput="updateNote(${index}, this.value)">${text}</textarea>
+      `;
+
+      notesContainer.appendChild(noteDiv);
+    }
+
+    function addNote() {
+      const notes = JSON.parse(localStorage.getItem("notes")) || [];
+      notes.push("");
+      localStorage.setItem("notes", JSON.stringify(notes));
+      loadNotes();
+    }
+
+    function deleteNote(index) {
+      const notes = JSON.parse(localStorage.getItem("notes"));
+      notes.splice(index, 1);
+      localStorage.setItem("notes", JSON.stringify(notes));
+      loadNotes();
+    }
+
+    function updateNote(index, value) {
+      const notes = JSON.parse(localStorage.getItem("notes"));
+      notes[index] = value;
+      localStorage.setItem("notes", JSON.stringify(notes));
+    }
+
+    loadNotes();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pagination Demo</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+    }
+
+    .container {
+      margin-top: 20px;
+    }
+
+    .item {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .pagination {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 5px 10px;
+      margin: 2px;
+      cursor: pointer;
+    }
+
+    .active {
+      background-color: black;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Pagination Example</h2>
+
+  <div>
+    Items per page:
+    <select id="itemsPerPage">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+      <option value="16">16</option>
+      <option value="17">17</option>
+      <option value="18">18</option>
+      <option value="19">19</option>
+      <option value="20">20</option>
+    </select>
+  </div>
+
+  <div class="container" id="dataContainer"></div>
+
+  <div class="pagination" id="pagination"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
